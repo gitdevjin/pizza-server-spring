@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import project.pizza.config.RepositoryConfig;
+import project.pizza.config.ServiceConfig;
+import project.pizza.config.WebConfig;
 
-@Import(RepositoryConfig.class)
+@Import({RepositoryConfig.class, ServiceConfig.class, WebConfig.class})
 @SpringBootApplication
 public class PizzaApplication {
 

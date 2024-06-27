@@ -9,15 +9,10 @@ public class Member {
     private Long id;
 
     private String email;
-
     private String password;
-
     private String firstName;
-
     private String lastName;
-
     private String address;
-
     private String role;
 
 }

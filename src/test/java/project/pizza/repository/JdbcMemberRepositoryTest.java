@@ -29,7 +29,7 @@ public class JdbcMemberRepositoryTest {
         Member memberA = new Member();
 
         memberA.setEmail("test@google.com");
-        memberA.setPassword("test-password");
+        memberA.setPassword("1234");
         memberA.setAddress("1760 finch Ave, North York, ON");
         memberA.setFirstName("Bob");
         memberA.setLastName("Smith");
@@ -57,11 +57,12 @@ public class JdbcMemberRepositoryTest {
         memberB.setLastName("Smith");
         memberB.setRole("admin");
 
+        // Save a Member
         memberRepository.save(memberB);
-        Optional<Member> retrievedMemberOptional = memberRepository.findByEmail(memberB.getEmail());
-        Member retrievedMember = retrievedMemberOptional.orElseThrow();
 
         // Successfully Found
+        Optional<Member> retrievedMemberOptional = memberRepository.findByEmail(memberB.getEmail());
+        Member retrievedMember = retrievedMemberOptional.orElse(null);
         Assertions.assertThat(retrievedMember).isEqualTo(memberB);
 
         // Not Found

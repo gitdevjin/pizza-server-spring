@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Admin Login</h2>
+
+<form action="" th:action th:object="${loginForm}" method="post">
+    <!-- th:field makes id element???? ask the chatgpt-->
+    <label for="emailId" th:text="#{label.login.email}">email</label>
+    <input type="text" id="emailId" th:field="*{emailId}">
+    <div th:errors="*{emailId}"></div>
+
+    <label for="password" th:text="#{label.login.pwd}">pwd</label>
+    <input type="text" id="password" th:field="*{password}">
+    <div th:errors="*{password}"></div>
+
+    <button type="submit">Sign-in</button>
+
+</form>
+
+
+</body>
+</html>
