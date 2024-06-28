@@ -26,14 +26,9 @@ public class JdbcMemberRepositoryTest {
 
     @Test
     public void save() {
-        Member memberA = new Member();
-
-        memberA.setEmail("test@google.com");
-        memberA.setPassword("1234");
-        memberA.setAddress("1760 finch Ave, North York, ON");
-        memberA.setFirstName("Bob");
-        memberA.setLastName("Smith");
-        memberA.setRole("admin");
+        Member memberA = new Member("test2@google.com", "1234",
+                "Bob", "Smith",
+                "1760 finch Ave, North York, ON", "admin");
 
         Member result = memberRepository.save(memberA);
 
@@ -42,20 +37,14 @@ public class JdbcMemberRepositoryTest {
 
         // Failed to save due to duplicate email
         Assertions.assertThatThrownBy(() -> memberRepository.save(memberA))
-                .isInstanceOf(DuplicateKeyException.class);
+                .isInstanceOf(RuntimeException.class);
     }
-
 
     @Test
     public void findByEmail() {
-        Member memberB = new Member();
-
-        memberB.setEmail("findTest@google.com");
-        memberB.setPassword("test-password");
-        memberB.setAddress("595 St.Clair West Ave, Toronto, ON");
-        memberB.setFirstName("Bob");
-        memberB.setLastName("Smith");
-        memberB.setRole("admin");
+        Member memberB = new Member("findTest@google.com","test-password",
+                "Bob", "Smith",
+                "595 St.Clair West Ave, Toronto, ON","customer");
 
         // Save a Member
         memberRepository.save(memberB);
@@ -69,7 +58,6 @@ public class JdbcMemberRepositoryTest {
         Optional<Member> NotFoundMemberOptional = memberRepository.findByEmail("wrongEmail@google.com");
         Assertions.assertThatThrownBy(NotFoundMemberOptional::orElseThrow)
                 .isInstanceOf(NoSuchElementException.class);
-
     }
 
 }

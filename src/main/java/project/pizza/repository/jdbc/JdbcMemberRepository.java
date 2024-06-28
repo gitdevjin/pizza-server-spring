@@ -30,9 +30,15 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public Member save(Member member) {
         SqlParameterSource param = new BeanPropertySqlParameterSource(member);
-        Number key = jdbcInsert.executeAndReturnKey(param);
-        member.setId(key.longValue());
-        return member;
+
+        try {
+            Number key = jdbcInsert.executeAndReturnKey(param);
+            member.setId(key.longValue());
+            return member;
+        } catch (Exception e) {
+            log.info("[JdbcMemberRepository][save][ERROR] - Failed to Save");
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public Optional<Member> findByEmail(String email) {
@@ -42,8 +48,8 @@ public class JdbcMemberRepository implements MemberRepository {
             Map<String, Object> param = Map.of("email", email);
             Member member = template.queryForObject(sql, param, memberRowMapper());
             return Optional.ofNullable(member);
-        } catch (EmptyResultDataAccessException e) {
-            log.info("Member of the email not Found");
+        } catch (RuntimeException e) {
+            log.info("[JdbcMemberRepository][findByEmail][ERROR] - Failed to find a Member of the Email");
             return Optional.empty();
         }
     }
