@@ -10,6 +10,7 @@ import project.pizza.web.SessionConst;
 
 @Slf4j
 public class AdminAuthInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
