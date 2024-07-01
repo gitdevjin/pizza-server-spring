@@ -14,6 +14,11 @@ public class TestDataInit {
 
     @PostConstruct
     public void init() {
+//        Member memberA = new Member("test@gmail.com", "1234",
+//                "Bob", "Smith",
+//                "1760 finch Ave, North York, ON", "admin");
+//
+//        Member result = memberRepository.save(memberA);
 
     }
 }

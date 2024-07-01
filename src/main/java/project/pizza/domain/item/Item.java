@@ -2,15 +2,17 @@ package project.pizza.domain.item;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Item {
 
     private Long id;
 
     private String itemName;
-    private Double price;
     private String category;
     private String description;
-    private String imgSource;
+    private List<ItemPrice> prices;
+    private ImageFile imgFile;
 
 }

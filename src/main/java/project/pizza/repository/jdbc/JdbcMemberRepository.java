@@ -23,7 +23,7 @@ public class JdbcMemberRepository implements MemberRepository {
     public JdbcMemberRepository(DataSource dataSource) {
         this.template = new NamedParameterJdbcTemplate(dataSource);
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
-                .withTableName("member")
+                .withTableName("members")
                 .usingGeneratedKeyColumns("id");
     }
 
@@ -42,7 +42,7 @@ public class JdbcMemberRepository implements MemberRepository {
     }
 
     public Optional<Member> findByEmail(String email) {
-        String sql = "select * from member where email = :email";
+        String sql = "select * from members where email = :email";
 
         try {
             Map<String, Object> param = Map.of("email", email);

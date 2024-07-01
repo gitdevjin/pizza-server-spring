@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Item</title>
+</head>
+<body>
+<h1>Create New Item</h1>
+<form th:action th:object="${item}" method="post">
+    <label for="itemName">Item Name:</label>
+    <input type="text" id="itemName" th:field="*{itemName}" /><br/>
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" th:field="*{category}" /><br/>
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" th:field="*{description}" /><br/>
+
+    <h3>Sizes and Prices</h3>
+
+    <div id="sizesAndPrices">
+        <div th:each="price, iterStat : ${item.prices}">
+                <label for="size">Size:</label>
+                <input type="text" th:id="'size' + ${iterStat.index}" th:field="*{prices[__${iterStat.index}__].size}" />
+                <br/>
+                <label for="price">Price:</label>
+                <input type="text" th:id="'price' + ${iterStat.index}" th:field="*{prices[__${iterStat.index}__].price}" />
+                <button type="button" onclick="deleteSizePrice(this)">Delete</button>
+            <br/>
+        </div>
+    </div>
+
+        <button type="button" onclick="addSize()">Add Size</button><br/>
+        <button type="submit">Save Item</button>
+    </form>
+
+    <script th:inline="javascript">
+        var index = 0;  // Initialize with current size
+        function addSize() {
+            var container = document.createElement('div');
+            container.classList.add('sizePriceContainer');
+
+            var sizeLabel = document.createElement('label');
+            sizeLabel.setAttribute('for', 'size' + index);
+            sizeLabel.textContent = 'Size:';
+            container.appendChild(sizeLabel);
+
+            var sizeInput = document.createElement('input');
+            sizeInput.setAttribute('type', 'text');
+            sizeInput.setAttribute('id', 'size' + index);
+            sizeInput.setAttribute('name', 'prices[' + index + '].size');
+            container.appendChild(sizeInput);
+
+            var priceLabel = document.createElement('label');
+            priceLabel.setAttribute('for', 'price' + index);
+            priceLabel.textContent = 'Price:';
+            container.appendChild(priceLabel);
+
+            var priceInput = document.createElement('input');
+            priceInput.setAttribute('type', 'text');
+            priceInput.setAttribute('id', 'price' + index);
+            priceInput.setAttribute('name', 'prices[' + index + '].price');
+            container.appendChild(priceInput);
+
+            var deleteButton = document.createElement('button');
+            deleteButton.setAttribute('type', 'button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.setAttribute('onclick', 'deleteSizePrice(this)');
+            container.appendChild(deleteButton);
+
+            var br = document.createElement('br');
+            container.appendChild(br);
+
+            document.getElementById('sizesAndPrices').appendChild(container);
+
+            index++;
+        }
+
+        function deleteSizePrice(button) {
+            var container = button.parentNode;
+            container.parentNode.removeChild(container);
+        }
+    </script>
+</body>
+</html>
