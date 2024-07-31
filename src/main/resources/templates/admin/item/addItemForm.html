@@ -5,15 +5,21 @@
 </head>
 <body>
 <h1>Create New Item</h1>
-<form th:action th:object="${item}" method="post">
+<form th:action th:object="${item}" method="post" enctype="multipart/form-data">
     <label for="itemName">Item Name:</label>
     <input type="text" id="itemName" th:field="*{itemName}" /><br/>
+    <div th:errors="*{itemName}"></div>
 
     <label for="category">Category:</label>
     <input type="text" id="category" th:field="*{category}" /><br/>
+    <div th:errors="*{category}"></div>
 
     <label for="description">Description:</label>
     <input type="text" id="description" th:field="*{description}" /><br/>
+    <div th:errors="*{description}"></div>
+
+    <label for="itemImage">Image File:</label>
+    <input type="file" id="itemImage" name="itemImage"/><br/>
 
     <h3>Sizes and Prices</h3>
 
@@ -28,6 +34,7 @@
             <br/>
         </div>
     </div>
+    <div th:errors="*{prices}"></div>
 
         <button type="button" onclick="addSize()">Add Size</button><br/>
         <button type="submit">Save Item</button>

@@ -20,7 +20,7 @@ public class AdminAuthInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute(SessionConst.Admin_Member) == null) {
-            log.info("AdminAuthInterceptor] -- Unauthorized User");
+            log.info("[AdminAuthInterceptor] -- Unauthorized User");
             response.sendRedirect("/admin/login");
             return false;
         }
