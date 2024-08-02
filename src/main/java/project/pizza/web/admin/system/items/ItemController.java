@@ -15,6 +15,7 @@ import project.pizza.domain.item.ImageFile;
 import project.pizza.domain.item.Item;
 import project.pizza.domain.item.ItemPrice;
 import project.pizza.domain.item.manager.ItemImageManager;
+import project.pizza.service.admin.ItemService;
 import project.pizza.web.admin.system.items.form.ItemAddForm;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemImageManager itemImageManager;
+    private final ItemService itemService;
 
     @GetMapping("/items/add")
     public String newItem(@ModelAttribute("item") ItemAddForm form){
@@ -35,8 +37,6 @@ public class ItemController {
 
     @PostMapping("/items/add")
     public String saveItem(@Valid @ModelAttribute("item") ItemAddForm form, BindingResult bindingResult) {
-        // To do
-        // Using Binding Result, implement validation.
 
         if (bindingResult.hasErrors()) return "admin/item/addItemForm";
 
@@ -53,25 +53,13 @@ public class ItemController {
         }
         /* ************************************ */
 
-        ImageFile image;
-
-        try {
-            if (!form.getItemImage().isEmpty()) {
-                image = itemImageManager.storeFile(form.getItemImage());
-            } else {
-                image = null;
-            }
-        } catch (IOException e) {
-            bindingResult.rejectValue("itemImage", "error.itemImage", "Failed to upload image");
-            return "admin/item/addItemForm";
-        }
-
         Item newItem = new Item();
         newItem.setItemName(form.getItemName());
         newItem.setCategory(form.getCategory());
         newItem.setDescription(form.getDescription());
-        newItem.setImgFile(image);
         newItem.setPrices(prices);
+
+        itemService.addItem(newItem, form.getItemImage());
 
         return "admin/item/queryItems";
     }
