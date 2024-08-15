@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
+<!-- This will be called by other pages -->
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Page Title</title>
+</head>
+
+<body>
+<div th:replace="~{admin/layout/header :: adminHeader}"></div>
+
+
+<div th:replace="${content}">
+    <p>레이아웃 컨텐츠</p>
+</div>
+
+<div th:replace="~{admin/layout/footer :: adminFooter}"></div>
+</body>
+
+</html>

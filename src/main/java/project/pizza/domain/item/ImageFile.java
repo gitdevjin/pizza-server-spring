@@ -1,7 +1,9 @@
 package project.pizza.domain.item;
 
 import lombok.Data;
+import lombok.Getter;
 
+@Getter
 @Data
 public class ImageFile {
 
@@ -12,4 +14,5 @@ public class ImageFile {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
     }
+
 }

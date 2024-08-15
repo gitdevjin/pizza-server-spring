@@ -24,69 +24,81 @@
 
     <h3>Sizes and Prices</h3>
 
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+           th:text="${err}">Global Error</p>
+    </div>
+
     <div id="sizesAndPrices">
+
         <div th:each="price, iterStat : ${item.prices}">
-                <label for="size">Size:</label>
+                <label>Size:</label>
                 <input type="text" th:id="'size' + ${iterStat.index}" th:field="*{prices[__${iterStat.index}__].size}" />
                 <br/>
-                <label for="price">Price:</label>
+                <label>Price:</label>
                 <input type="text" th:id="'price' + ${iterStat.index}" th:field="*{prices[__${iterStat.index}__].price}" />
                 <button type="button" onclick="deleteSizePrice(this)">Delete</button>
             <br/>
+            <div th:errors="*{prices[__${iterStat.index}__].size}">Error</div>
+            <div th:errors="*{prices[__${iterStat.index}__].price}">Error</div>
         </div>
+
     </div>
-    <div th:errors="*{prices}"></div>
+    <div th:errors="${item.prices}">Error</div>
 
         <button type="button" onclick="addSize()">Add Size</button><br/>
         <button type="submit">Save Item</button>
-    </form>
+</form>
 
-    <script th:inline="javascript">
-        var index = 0;  // Initialize with current size
-        function addSize() {
-            var container = document.createElement('div');
-            container.classList.add('sizePriceContainer');
+<script th:inline="javascript">
+    //set this index with the length of the object sent from the server
+    var index = 0;
+        // [[${item.prices}]];  // Initialize with current size
+    function addSize() {
+        var container = document.createElement('div');
+        container.classList.add('sizePriceContainer');
 
-            var sizeLabel = document.createElement('label');
-            sizeLabel.setAttribute('for', 'size' + index);
-            sizeLabel.textContent = 'Size:';
-            container.appendChild(sizeLabel);
+        var sizeLabel = document.createElement('label');
+        sizeLabel.setAttribute('for', 'size' + index);
+        sizeLabel.textContent = 'Size:';
+        container.appendChild(sizeLabel);
 
-            var sizeInput = document.createElement('input');
-            sizeInput.setAttribute('type', 'text');
-            sizeInput.setAttribute('id', 'size' + index);
-            sizeInput.setAttribute('name', 'prices[' + index + '].size');
-            container.appendChild(sizeInput);
+        var sizeInput = document.createElement('input');
+        sizeInput.setAttribute('type', 'text');
+        sizeInput.setAttribute('id', 'size' + index);
+        sizeInput.setAttribute('name', 'prices[' + index + '].size');
+        container.appendChild(sizeInput);
 
-            var priceLabel = document.createElement('label');
-            priceLabel.setAttribute('for', 'price' + index);
-            priceLabel.textContent = 'Price:';
-            container.appendChild(priceLabel);
+        var priceLabel = document.createElement('label');
+        priceLabel.setAttribute('for', 'price' + index);
+        priceLabel.textContent = 'Price:';
+        container.appendChild(priceLabel);
 
-            var priceInput = document.createElement('input');
-            priceInput.setAttribute('type', 'text');
-            priceInput.setAttribute('id', 'price' + index);
-            priceInput.setAttribute('name', 'prices[' + index + '].price');
-            container.appendChild(priceInput);
+        var priceInput = document.createElement('input');
+        priceInput.setAttribute('type', 'text');
+        priceInput.setAttribute('id', 'price' + index);
+        priceInput.setAttribute('name', 'prices[' + index + '].price');
+        container.appendChild(priceInput);
 
-            var deleteButton = document.createElement('button');
-            deleteButton.setAttribute('type', 'button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.setAttribute('onclick', 'deleteSizePrice(this)');
-            container.appendChild(deleteButton);
+        var deleteButton = document.createElement('button');
+        deleteButton.setAttribute('type', 'button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.setAttribute('onclick', 'deleteSizePrice(this)');
+        container.appendChild(deleteButton);
 
-            var br = document.createElement('br');
-            container.appendChild(br);
+        var br = document.createElement('br');
+        container.appendChild(br);
 
-            document.getElementById('sizesAndPrices').appendChild(container);
+        document.getElementById('sizesAndPrices').appendChild(container);
 
-            index++;
-        }
+        index++;
+    }
 
-        function deleteSizePrice(button) {
-            var container = button.parentNode;
-            container.parentNode.removeChild(container);
-        }
-    </script>
+    function deleteSizePrice(button) {
+        var container = button.parentNode;
+        container.parentNode.removeChild(container);
+    }
+</script>
+
 </body>
 </html>

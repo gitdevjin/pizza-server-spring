@@ -22,7 +22,7 @@ public class ItemAddForm {
     private String description;
 
     @NotEmpty
-    private List<ItemPrice> prices;
+    private List<ItemPriceAddForm> prices;
 
     private MultipartFile itemImage;
 }

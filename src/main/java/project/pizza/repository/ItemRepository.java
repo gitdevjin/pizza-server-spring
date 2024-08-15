@@ -8,4 +8,6 @@ public interface ItemRepository {
 
     public Item save(Item item);
     public List<Item> findAll(String category);
+
+    public String delete(Long itemId);
 }

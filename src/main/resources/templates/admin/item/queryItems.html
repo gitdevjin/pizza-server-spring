@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html th:replace="~{admin/layout/main :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Items</title>
 </head>
 <body>
+
+<section>
+<a href="/admin/system/items/add">Add Item</a>
+<br>
+<div th:each="item : ${retrievedItems}">
+    <div th:text="${item.itemName}"></div>
+    <div th:text="${item.category}"></div>
+        <div th:each="price : ${item.prices}">
+            <div th:text="${price.getSize()}"></div>
+            <div th:text="${price.getPrice()}"></div>
+        </div>
+    <div th:text="${item.description}"></div>
+    <div th:text="${item.imgFile.storeFileName}"></div>
+    <img th:src="|/admin/system/items/images/${item.imgFile.getStoreFileName()}|" alt="Item Image" width="500" height="300"/>
+    <a th:href="@{/admin/system/item/{param1}(param1=${item.getId()})}">Get</a>
+    <form th:action="@{/admin/system/item/delete/{param1}(param1=${item.getId()})}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+</div>
+
+</section>
+
+<br>
+<br>
+<hr>
 
 </body>
 </html>

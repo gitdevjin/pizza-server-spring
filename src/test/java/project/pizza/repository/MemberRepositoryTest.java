@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 import project.pizza.domain.member.Member;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 
 @Transactional
 @SpringBootTest
-public class JdbcMemberRepositoryTest {
+public class MemberRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;

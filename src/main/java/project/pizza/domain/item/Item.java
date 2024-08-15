@@ -15,4 +15,20 @@ public class Item {
     private List<ItemPrice> prices;
     private ImageFile imgFile;
 
+    public Item() {}
+
+    public Item(String itemName, String category, String description, List<ItemPrice> prices) {
+        this.itemName = itemName;
+        this.category = category;
+        this.description = description;
+        this.prices = prices;
+    }
+
+    public Item(String itemName, String category, String description, List<ItemPrice> prices, ImageFile imgFile) {
+        this.itemName = itemName;
+        this.category = category;
+        this.description = description;
+        this.prices = prices;
+        this.imgFile = imgFile;
+    }
 }

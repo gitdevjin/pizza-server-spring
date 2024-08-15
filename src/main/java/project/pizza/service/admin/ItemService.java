@@ -9,6 +9,8 @@ import project.pizza.domain.item.manager.ItemImageManager;
 import project.pizza.repository.ItemRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,6 +37,18 @@ public class ItemService {
         item.setImgFile(image);
 
         return itemRepository.save(item);
+    }
+
+    public String deleteItem(Long itemId) {
+        return itemRepository.delete(itemId);
+    }
+
+    public List<Item> getItems(String category) {
+        return itemRepository.findAll(category);
+    }
+
+    public String getImageFullPath(String fileName) {
+        return itemImageManager.getFullPath(fileName);
     }
 
 }

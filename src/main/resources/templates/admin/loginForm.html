@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html th:replace="~{admin/layout/main :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
 
 <h2>Admin Login</h2>
+<section>
+    <form action="" th:action th:object="${loginForm}" method="post">
+        <!-- th:field makes id element???? ask the chatgpt-->
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
 
-<form action="" th:action th:object="${loginForm}" method="post">
-    <!-- th:field makes id element???? ask the chatgpt-->
-    <div th:if="${#fields.hasGlobalErrors()}">
-        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
-    </div>
+        <label for="emailId" th:text="#{label.login.email}">email</label>
+        <input type="text" id="emailId" th:field="*{emailId}">
+        <div th:errors="*{emailId}"></div>
 
-    <label for="emailId" th:text="#{label.login.email}">email</label>
-    <input type="text" id="emailId" th:field="*{emailId}">
-    <div th:errors="*{emailId}"></div>
+        <label for="password" th:text="#{label.login.pwd}">pwd</label>
+        <input type="text" id="password" th:field="*{password}">
+        <div th:errors="*{password}"></div>
 
-    <label for="password" th:text="#{label.login.pwd}">pwd</label>
-    <input type="text" id="password" th:field="*{password}">
-    <div th:errors="*{password}"></div>
-
-    <button type="submit">Sign-in</button>
-
-</form>
+        <button type="submit">Sign-in</button>
+    </form>
+</section>
 
 
 </body>
