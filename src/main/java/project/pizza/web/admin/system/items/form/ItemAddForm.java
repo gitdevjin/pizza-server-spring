@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.pizza.domain.item.ImageFile;
 import project.pizza.domain.item.ItemPrice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class ItemAddForm {
     private String description;
 
     @NotEmpty
-    private List<ItemPriceAddForm> prices;
+    private List<ItemPriceAddForm> prices = new ArrayList<>();
 
     private MultipartFile itemImage;
 }

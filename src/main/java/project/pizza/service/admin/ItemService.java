@@ -2,6 +2,7 @@ package project.pizza.service.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import project.pizza.domain.item.ImageFile;
 import project.pizza.domain.item.Item;
@@ -19,6 +20,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemImageManager itemImageManager;
 
+    @Transactional
     public Item addItem(Item item, MultipartFile imgFile) {
 
         ImageFile image;
@@ -39,8 +41,13 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    @Transactional
     public String deleteItem(Long itemId) {
         return itemRepository.delete(itemId);
+    }
+
+    public Item getItem(Long itemId) {
+        return itemRepository.findById(itemId).orElse(null);
     }
 
     public List<Item> getItems(String category) {

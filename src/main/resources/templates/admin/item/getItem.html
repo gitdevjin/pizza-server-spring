@@ -6,5 +6,25 @@
 </head>
 <body>
 
+<div th:object="${item}">
+    <div th:text="${item.itemName}"></div>
+    <div th:text="${item.category}"></div>
+    <div th:each="price : ${item.prices}">
+        <div th:text="${price.getSize()}"></div>
+        <div th:text="${price.getPrice()}"></div>
+    </div>
+    <div th:text="${item.description}"></div>
+    <div th:text="${item.imgFile.storeFileName}"></div>
+    <img th:src="|/admin/system/items/images/${item.imgFile.getStoreFileName()}|" alt="Item Image" width="500" height="300"/>
+    <button onclick="location.href='editForm.html'"
+            th:onclick="|location.href='@{/admin/system/item/update/{itemId}(itemId=${item.id})}'|"
+            type="button">Update</button>
+    <form th:action="@{/admin/system/item/delete/{param1}(param1=${item.getId()})}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+</div>
+
 </body>
 </html>

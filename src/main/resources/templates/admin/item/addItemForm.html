@@ -52,7 +52,7 @@
 
 <script th:inline="javascript">
     //set this index with the length of the object sent from the server
-    var index = 0;
+    var index = [[${#lists.size(item.prices)}]];
         // [[${item.prices}]];  // Initialize with current size
     function addSize() {
         var container = document.createElement('div');

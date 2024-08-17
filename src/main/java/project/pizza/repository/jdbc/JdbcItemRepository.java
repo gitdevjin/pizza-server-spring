@@ -1,6 +1,7 @@
 package project.pizza.repository.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,6 +19,7 @@ import project.pizza.repository.ItemRepository;
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 public class JdbcItemRepository implements ItemRepository {
@@ -63,7 +65,6 @@ public class JdbcItemRepository implements ItemRepository {
             throw new RuntimeException(e.getMessage());
         }
         /* ******************************* */
-
 
         /* Add Item_Prices Table */
         List<ItemPrice> prices = item.getPrices();
@@ -112,6 +113,22 @@ public class JdbcItemRepository implements ItemRepository {
     }
 
     @Override
+    public Optional<Item> findById(Long id) {
+        String sql = "select * from items where id=:itemId";
+        Map<String, Long> itemId = Map.of("itemId", id);
+
+        try {
+            Item item = template.queryForObject(sql, itemId, itemRowMapper());
+            List<ItemPrice> prices = findPrices(item.getId());
+            item.setPrices(prices);
+            return Optional.of(item);
+        } catch (Exception e) {
+            log.info("Item is not Found");
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public String delete(Long id) {
         String sql = "delete from items where id=:itemId";
         String sqlPrice = "delete from item_prices where item_id=:itemId";
@@ -123,10 +140,11 @@ public class JdbcItemRepository implements ItemRepository {
             template.update(sqlPrice, itemId);
         } catch (Exception e) {
             log.info("[JdbcItemRepository][save][ERROR] - Failed to Delete Item or Item_Prices");
-            message = "Item Delete Failed";
             throw new RuntimeException(e.getMessage());
         }
 
+        // To do
+        // Delete Item Image
         return message;
     }
 
@@ -135,7 +153,15 @@ public class JdbcItemRepository implements ItemRepository {
 
         Map<String, Object> param = Map.of("id", itemId);
 
-        List<ItemPrice> prices = template.query(sql, param, priceRowMapper());
+        List<ItemPrice> prices;
+
+        try {
+            prices = template.query(sql, param, priceRowMapper());
+        } catch (Exception e) {
+            log.info("Item Prices Failed to be retrieved");
+            throw new RuntimeException(e.getMessage());
+        }
+
         return prices;
     }
 
