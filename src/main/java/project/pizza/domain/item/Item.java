@@ -31,4 +31,12 @@ public class Item {
         this.prices = prices;
         this.imgFile = imgFile;
     }
+
+    public Item(Long id, String itemName, String category, String description, List<ItemPrice> prices) {
+        this.id = id;
+        this.itemName = itemName;
+        this.category = category;
+        this.description = description;
+        this.prices = prices;
+    }
 }

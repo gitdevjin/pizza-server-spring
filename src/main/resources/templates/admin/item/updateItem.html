@@ -21,9 +21,11 @@
     <label for="itemImage">Image File:</label>
     <input type="file" id="itemImage" name="itemImage"/><br/>
     <div th:errors="*{imgFile}"></div>
+
     <p>Current Image</p>
     <img th:src="|/admin/system/items/images/${item.imgFile.getStoreFileName()}|" alt="Item Image" width="400" height="200"/>
 
+    <input type="hidden" name="currentImage" th:value="${item.imgFile.getStoreFileName()}">
     <h3>Sizes and Prices</h3>
 
     <div th:if="${#fields.hasGlobalErrors()}">

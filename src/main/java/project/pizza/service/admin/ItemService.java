@@ -23,26 +23,35 @@ public class ItemService {
     @Transactional
     public Item addItem(Item item, MultipartFile imgFile) {
 
-        ImageFile image;
-
-        try {
-            if (!imgFile.isEmpty()) {
-                image = itemImageManager.storeFile(imgFile);
-            } else {
-                image = null;
-            }
-        } catch (IOException e) {
-            log.info("[ItemService][save][ERROR] - Failed to Save ImageFile");
-            throw new RuntimeException(e.getMessage());
-        }
-
-        item.setImgFile(image);
+        storeItemImage(item, imgFile);
 
         return itemRepository.save(item);
     }
 
     @Transactional
-    public String deleteItem(Long itemId) {
+    public Item updateItem(Item item, MultipartFile imgFile, String storedImage) {
+
+        if (storedImage != null) {
+            try {
+                itemImageManager.deleteFile(storedImage);
+            } catch (Exception e) {
+                log.info("[ItemService][delete][ERROR] - Failed to Delete StoredImageFile");
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+
+        storeItemImage(item, imgFile);
+
+        log.info("Multipart Check in Update: {}", imgFile.getOriginalFilename());
+        log.info("This is Image Before Update: {}", storedImage);
+        log.info("Image[update]: {}", item.getImgFile().getStoreFileName());
+
+        return itemRepository.update(item);
+    }
+
+    @Transactional
+    public String deleteItem(Long itemId, String imageFile) {
+        itemImageManager.deleteFile(imageFile);
         return itemRepository.delete(itemId);
     }
 
@@ -56,6 +65,24 @@ public class ItemService {
 
     public String getImageFullPath(String fileName) {
         return itemImageManager.getFullPath(fileName);
+    }
+
+    private void storeItemImage(Item item, MultipartFile imgFile) {
+        ImageFile image;
+
+        try {
+            if (!imgFile.isEmpty()) {
+                image = itemImageManager.storeFile(imgFile);
+                log.info("Saving Image {}", image.getStoreFileName());
+            } else {
+                image = null;
+            }
+        } catch (IOException e) {
+            log.info("[ItemService][save][ERROR] - Failed to Save ImageFile");
+            throw new RuntimeException(e.getMessage());
+        }
+
+        item.setImgFile(image);
     }
 
 }

@@ -45,10 +45,13 @@ public class ItemImageManager {
 
     public boolean deleteFile(String filename) {
         File file = new File(getFullPath(filename));
+
         if (file.exists()) {
             return file.delete(); // Returns true if the file was successfully deleted, false otherwise
+        } else {
+            log.info("File Doesn't Exist");
+            return false; // File does not exist
         }
-        return false; // File does not exist
     }
 
 }

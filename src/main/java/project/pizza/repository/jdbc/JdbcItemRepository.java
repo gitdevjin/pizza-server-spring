@@ -93,6 +93,66 @@ public class JdbcItemRepository implements ItemRepository {
     }
 
     @Override
+    public Item update(Item item) {
+
+        String sql = "update items set item_name=:item_name, category=:category, desc=:desc, " +
+                "original_img=:original_img, stored_img=:stored_img where id=:item_id";
+
+        String uploadImageName = "";
+        String storeImageName = "";
+
+        if (item.getImgFile() != null) {
+            uploadImageName = item.getImgFile().getUploadFileName();
+            storeImageName = item.getImgFile().getStoreFileName();
+        }
+
+        SqlParameterSource paramItem = new MapSqlParameterSource()
+                .addValue("item_id", item.getId())
+                .addValue("item_name", item.getItemName())
+                .addValue("category", item.getCategory())
+                .addValue("desc", item.getDescription())
+                .addValue("original_img", uploadImageName)
+                .addValue("stored_img", storeImageName);
+
+        try {
+            template.update(sql, paramItem);
+        } catch (Exception e) {
+            log.info("[JdbcItemRepository][update][ERROR] - Failed to Update Item");
+            throw new RuntimeException(e.getMessage());
+        }
+
+        /* Price Update*/
+
+        List<ItemPrice> prices = item.getPrices();
+
+        for (ItemPrice price : prices) {
+            //Delete Prices
+            String sqlDeletePrices = "delete from item_prices where item_id=:itemId";
+            Map<String, Long> itemId = Map.of("itemId", item.getId());
+
+            // Add new Prices
+            String sqlNewPrices = "insert into item_prices (item_id, size, price) values (:itemId, :size, :price)";
+
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+
+            SqlParameterSource paramPrice = new MapSqlParameterSource()
+                    .addValue("itemId", item.getId())
+                    .addValue("size", price.getSize())
+                    .addValue("price", price.getPrice());
+
+            try {
+                template.update(sqlDeletePrices, itemId);
+                template.update(sqlNewPrices, paramPrice, keyHolder);
+            } catch (Exception e) {
+                log.info("[JdbcItemRepository][save][ERROR] - Failed to Save Item_Prices");
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+
+        return item;
+    }
+
+    @Override
     public List<Item> findAll(String category) {
         String sql = "select * from items";
 

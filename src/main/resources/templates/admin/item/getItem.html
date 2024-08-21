@@ -21,6 +21,7 @@
             type="button">Update</button>
     <form th:action="@{/admin/system/item/delete/{param1}(param1=${item.getId()})}" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="storedImage" value="${item.imgFile.getStoreFileName()}">
         <button type="submit">Delete</button>
     </form>
     <br>

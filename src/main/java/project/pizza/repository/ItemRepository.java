@@ -11,4 +11,5 @@ public interface ItemRepository {
     public List<Item> findAll(String category);
     public String delete(Long itemId);
     public Optional<Item> findById(Long itemId);
+    public Item update(Item item);
 }

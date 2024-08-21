@@ -21,8 +21,10 @@
     <div th:text="${item.imgFile.storeFileName}"></div>
     <img th:src="|/admin/system/items/images/${item.imgFile.getStoreFileName()}|" alt="Item Image" width="500" height="300"/>
     <a th:href="@{/admin/system/item/{param1}(param1=${item.getId()})}">Get</a>
+
     <form th:action="@{/admin/system/item/delete/{param1}(param1=${item.getId()})}" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="storedImage" value="${item.imgFile.getStoreFileName()}">
         <button type="submit">Delete</button>
     </form>
     <br>
