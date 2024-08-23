@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import project.pizza.domain.item.ImageFile;
 import project.pizza.domain.item.Item;
-import project.pizza.domain.item.manager.ItemImageManager;
+import project.pizza.repository.ImageRepository;
 import project.pizza.repository.ItemRepository;
+import project.pizza.repository.MemberRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -18,7 +18,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ItemImageManager itemImageManager;
+    private final ImageRepository imageRepository;
 
     @Transactional
     public Item addItem(Item item, MultipartFile imgFile) {
@@ -33,7 +33,7 @@ public class ItemService {
 
         if (storedImage != null) {
             try {
-                itemImageManager.deleteFile(storedImage);
+                imageRepository.deleteFile(storedImage);
             } catch (Exception e) {
                 log.info("[ItemService][delete][ERROR] - Failed to Delete StoredImageFile");
                 throw new RuntimeException(e.getMessage());
@@ -51,7 +51,7 @@ public class ItemService {
 
     @Transactional
     public String deleteItem(Long itemId, String imageFile) {
-        itemImageManager.deleteFile(imageFile);
+        imageRepository.deleteFile(imageFile);
         return itemRepository.delete(itemId);
     }
 
@@ -64,7 +64,7 @@ public class ItemService {
     }
 
     public String getImageFullPath(String fileName) {
-        return itemImageManager.getFullPath(fileName);
+        return imageRepository.getFullPath(fileName);
     }
 
     private void storeItemImage(Item item, MultipartFile imgFile) {
@@ -72,7 +72,7 @@ public class ItemService {
 
         try {
             if (!imgFile.isEmpty()) {
-                image = itemImageManager.storeFile(imgFile);
+                image = imageRepository.storeFile(imgFile);
                 log.info("Saving Image {}", image.getStoreFileName());
             } else {
                 image = null;

@@ -3,10 +3,9 @@ package project.pizza.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import project.pizza.domain.item.manager.ItemImageManager;
+import project.pizza.repository.ImageRepository;
 import project.pizza.repository.ItemRepository;
 import project.pizza.repository.MemberRepository;
-import project.pizza.repository.jdbc.JdbcItemRepository;
 import project.pizza.service.admin.ItemService;
 import project.pizza.service.admin.LoginService;
 
@@ -16,7 +15,7 @@ public class ServiceConfig {
 
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-    private final ItemImageManager itemImageManager;
+    private final ImageRepository imageRepository;
 
     @Bean
     public LoginService loginService() {
@@ -25,7 +24,7 @@ public class ServiceConfig {
 
     @Bean
     public ItemService itemService() {
-        return new ItemService(itemRepository, itemImageManager);
+        return new ItemService(itemRepository, imageRepository);
     }
 
 }

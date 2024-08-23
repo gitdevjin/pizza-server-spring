@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
 import project.pizza.domain.item.Item;
 import project.pizza.domain.item.ItemPrice;
-import project.pizza.domain.item.manager.ItemImageManager;
 import project.pizza.service.admin.ItemService;
 import project.pizza.web.admin.system.items.form.ItemAddForm;
 import project.pizza.web.admin.system.items.form.ItemPriceAddForm;

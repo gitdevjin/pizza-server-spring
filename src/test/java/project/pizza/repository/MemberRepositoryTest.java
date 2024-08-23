@@ -1,5 +1,6 @@
 package project.pizza.repository;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,11 @@ public class MemberRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
-
     }
 
     @Test
     public void save() {
-        Member memberA = new Member("test2@google.com", "1234",
+        Member memberA = new Member("test3@google.com", "1234",
                 "Bob", "Smith",
                 "1760 finch Ave, North York, ON", "admin");
 

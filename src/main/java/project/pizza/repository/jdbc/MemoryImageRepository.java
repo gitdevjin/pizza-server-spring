@@ -1,17 +1,18 @@
-package project.pizza.domain.item.manager;
+package project.pizza.repository.jdbc;
 
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 import project.pizza.domain.item.ImageFile;
+import project.pizza.repository.ImageRepository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
 @Slf4j
-public class ItemImageManager {
+public class MemoryImageRepository implements ImageRepository {
 
     @Value("${file.dir}")
     private String fileDir;
