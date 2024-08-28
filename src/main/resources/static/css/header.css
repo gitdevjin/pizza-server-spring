@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* COLOR */
+    --main-theme-color: #006390;
+    --main-text-color: #333;
+    --main-text-font: "Merriweather", serif;
+    --side-theme-color: #f7f7f7;
+    --side-text-color: #4f4f4f;
+    --side-border-A: 1px solid #bababa;
+    --side-border-B: 1px solid #c8c8c8;
+    --footer-theme-color: #3f3f3f;
+    --footer-text-color: #ababab;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: var(--main-text-font);
+}
+
+body {
+    width: 100vw;
+    max-width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+.header {
+    position: relative;
+}
+
+.header__wrapper {
+    background-color: var(--main-theme-color);
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+}
+
+.header__container {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    color: #f7f7f7;
+    z-index: 50;
+}
+
+.header__title {
+    color: #f7f7f7;
+}
+
+.header__menu {
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.header__burger-btn {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+}
+
+.header__burger,
+.header__burger::before,
+.header__burger::after {
+    width: 36px;
+    height: 4.6px;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    transition: all 0.5s ease-in-out;
+}
+
+.header__burger::before,
+.header__burger::after {
+    content: "";
+    position: absolute;
+}
+
+.header__burger::before {
+    transform: translateY(-10px);
+}
+
+.header__burger::after {
+    transform: translateY(10px);
+}
+
+/* When clicked */
+
+.header__burger.active {
+    background-color: transparent;
+}
+
+.header__burger.active::before {
+    transform: rotate(45deg);
+    background-color: red;
+}
+
+.header__burger.active::after {
+    transform: rotate(-45deg);
+    background-color: red;
+}
+
+/* Top Menu */
+.menu-box {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    width: 100vw;
+    min-height: 100px;
+    background-color: var(--side-theme-color);
+    transition: all 0.4s ease-in-out;
+    z-index: 10;
+}
+
+.menu-box.active {
+    top: 5rem;
+}
+
+
+
+/*  Theme Color
+    #0078ae */

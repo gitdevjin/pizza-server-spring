@@ -1,16 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html th:replace="~{admin/layout/main :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main Page</title>
 </head>
 <body>
 
+<section>
 <h1>Home!</h1>
-<p><a href="/admin/">Admin Page</a></p>
-<br>
-<p><a href="">Customer Page</a></p>
 
+    <div th:class="card__container">
+        <a href="/admin">
+            <div class="home__card">
+                <img th:class="card__img" th:src="@{/images/logo.png}" alt="Admin Icon" style="width:500px">
+                <div class="container">
+                    <h4><b>Admin</b></h4>
+                    <p>For managers</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="">
+            <div class="home__card">
+                <img th:class="card__img" th:src="@{/images/logo.png}" alt="Customer Icon" style="width:500px">
+                <div class="container">
+                    <h4><b>Customer</b></h4>
+                    <p>For managers</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+<br>
+
+
+</section>
 
 </body>
 </html>

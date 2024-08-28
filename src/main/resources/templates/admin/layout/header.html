@@ -6,14 +6,29 @@
 </head>
 <body>
 
-<header th:fragment="adminHeader">
-    <h1>Admin</h1>
-    <ul>
-        <li><a href="/admin/system/items">Manage Items</a></li>
-        <li><a href="/admin/system/items/add">Add Item</a></li>
-        <li><a href="/">Manage Orders</a></li>
-        <li><a href="">Manage Members</a></li>
-    </ul>
+<header th:fragment="adminHeader" th:class="header">
+
+    <div th:class="header__wrapper">
+        <div th:class="header__container">
+            <div th:class="header__menu">
+                <div th:class="header__burger-btn">
+                    <div th:class="header__burger"></div>
+                </div>
+            </div>
+
+            <h1 th:class="header__title">Mega Pizza</h1>
+            <div>Mock</div>
+        </div>
+    </div>
+
+    <div th:class="menu-box">
+        <p>hello</p>
+        <p>hello2</p>
+        <p>hello3</p>
+        <p>hello4</p>
+        <p>hello5</p>
+    </div>
+
 </header>
 
 </body>

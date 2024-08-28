@@ -7,8 +7,9 @@
 </head>
 <body>
 
-<h2>Admin Login</h2>
+
 <section>
+    <h2>Admin Login</h2>
     <form action="" th:action th:object="${loginForm}" method="post">
         <!-- th:field makes id element???? ask the chatgpt-->
         <div th:if="${#fields.hasGlobalErrors()}">
