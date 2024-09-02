@@ -1,0 +1,54 @@
+.admin__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin__main-card-container {
+    width: 70vw;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 25px;
+    padding: 10px;
+}
+.admin__main-card-container a{
+    place-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin__main-card-container a,
+.admin__main-card-container a:visited {
+    text-decoration: none;
+    color: var(--side-text-color);
+    font-size: 2rem;
+}
+
+.admin__main-card {
+    box-shadow: 0 4px 8px 0 var(--main-shadow-color);
+    transition: 0.3s;
+    border-radius: 5px;
+    width: 25vw;
+    min-width: 225px;
+    min-height: 250px;
+    height: 35vh;
+    margin: 2rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--main-text-font);
+}
+
+.admin__main-card:hover {
+    box-shadow: 0 8px 16px 0 var(--main-theme-color);
+}
+
+.card__img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 5px 5px 0 0;
+}

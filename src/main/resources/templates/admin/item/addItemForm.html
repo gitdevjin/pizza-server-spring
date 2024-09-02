@@ -11,7 +11,14 @@
     <div th:errors="*{itemName}"></div>
 
     <label for="category">Category:</label>
-    <input type="text" id="category" th:field="*{category}" /><br/>
+    <select id="category" th:field="*{category}">
+        <option value="" disabled>Select a category</option>
+        <option value="pizza">Pizza</option>
+        <option value="drink">Drink</option>
+        <option value="salad">Salad</option>
+        <option value="pasta">Pasta</option>
+        <!-- Add more categories as needed -->
+    </select>
     <div th:errors="*{category}"></div>
 
     <label for="description">Description:</label>

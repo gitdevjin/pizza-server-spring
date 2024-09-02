@@ -9,13 +9,45 @@
 <body>
 
 <section>
-    <h3>Admin main</h3>
-    <ul>
-        <li><a href="/admin/system/items">Manage Items</a></li>
-        <li><a href="/admin/system/items/add">Add Item</a></li>
-        <li><a href="/">Manage Orders</a></li>
-        <li><a href="">Manage Members</a></li>
-    </ul>
+    <div th:class="admin__main">
+        <div th:class="admin__main-card-container">
+            <a href="/admin/system/items">
+            <div class="admin__main-card">
+                <img th:class="card__img" th:src="@{/images/admin.png}" alt="Admin Icon">
+                <div class="container">
+                    <h4>Manage Items</h4>
+                </div>
+            </div>
+            </a>
+
+            <a href="/admin/system/items/add">
+                <div class="admin__main-card">
+                    <img th:class="card__img" th:src="@{/images/customer.png}" alt="Customer Icon">
+                    <div class="container">
+                        <h4>Add Item</h4>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/system/items/add">
+                <div class="admin__main-card">
+                    <img th:class="card__img" th:src="@{/images/customer.png}" alt="Customer Icon">
+                    <div class="container">
+                        <h4>Add Item</h4>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/system/items/add">
+                <div class="admin__main-card">
+                    <img th:class="card__img" th:src="@{/images/customer.png}" alt="Customer Icon">
+                    <div class="container">
+                        <h4>Add Item</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 </section>
 </body>
 </html>

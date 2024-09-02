@@ -9,23 +9,29 @@
 
 
 <section>
-    <h2>Admin Login</h2>
-    <form action="" th:action th:object="${loginForm}" method="post">
-        <!-- th:field makes id element???? ask the chatgpt-->
-        <div th:if="${#fields.hasGlobalErrors()}">
-            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
-        </div>
+    <div th:class="form-container">
+        <form action="" th:action th:object="${loginForm}" th:class="login-form" method="post">
+            <!-- th:field makes id element???? ask the chatgpt-->
+            <div class="login-title">
+                <h3>Admin Login</h3>
+            </div>
 
-        <label for="emailId" th:text="#{label.login.email}">email</label>
-        <input type="text" id="emailId" th:field="*{emailId}">
-        <div th:errors="*{emailId}"></div>
+            <div th:class="input-container">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                </div>
 
-        <label for="password" th:text="#{label.login.pwd}">pwd</label>
-        <input type="text" id="password" th:field="*{password}">
-        <div th:errors="*{password}"></div>
+                <label for="emailId"></label>
+                <input th:class="login-input" type="text" id="emailId" th:field="*{emailId}" placeholder="manager@example.com">
+                <div class="field-error" th:errors="*{emailId}"></div>
 
-        <button type="submit">Sign-in</button>
-    </form>
+                <label for="password"></label>
+                <input th:class="login-input" type="password" id="password" th:field="*{password}" placeholder="password">
+                <div class="field-error" th:errors="*{password}"></div>
+            </div>
+            <button th:class="login-btn" type="submit">Login</button>
+        </form>
+    </div>
 </section>
 
 

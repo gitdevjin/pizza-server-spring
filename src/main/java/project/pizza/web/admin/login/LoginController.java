@@ -39,7 +39,7 @@ public class LoginController {
 
         if (loginMember == null) {
             log.info("[LoginController] -- User not Found");
-            bindingResult.reject("loginFail", "Email or Password is Wrong");
+            bindingResult.reject("loginFail", "Incorrect email or password");
             return "admin/loginForm";
         }
 

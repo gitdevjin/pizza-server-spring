@@ -8,29 +8,28 @@
 <body>
 
 <section>
-<h1>Home!</h1>
+    <main th:class="home__main">
 
-    <div th:class="card__container">
-        <a href="/admin">
-            <div class="home__card">
-                <img th:class="card__img" th:src="@{/images/logo.png}" alt="Admin Icon" style="width:500px">
-                <div class="container">
-                    <h4><b>Admin</b></h4>
-                    <p>For managers</p>
+        <div th:class="card__container">
+            <a href="/admin">
+                <div class="home__card">
+                    <img th:class="card__img" th:src="@{/images/admin.png}" alt="Admin Icon">
+                    <div class="container">
+                        <h4><b>Admin</b></h4>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
-        <a href="">
-            <div class="home__card">
-                <img th:class="card__img" th:src="@{/images/logo.png}" alt="Customer Icon" style="width:500px">
-                <div class="container">
-                    <h4><b>Customer</b></h4>
-                    <p>For managers</p>
+            <a href="">
+                <div class="home__card customer">
+                    <img th:class="card__img" th:src="@{/images/customer.png}" alt="Customer Icon">
+                    <div class="container">
+                        <h4><b>Customer</b></h4>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
+    </main>
 
 <br>
 

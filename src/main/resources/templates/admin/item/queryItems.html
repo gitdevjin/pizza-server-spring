@@ -8,31 +8,54 @@
 <body>
 
 <section>
-<a href="/admin/system/items/add">Add Item</a>
-<br>
-<div th:each="item : ${retrievedItems}">
-    <div th:text="${item.itemName}"></div>
-    <div th:text="${item.category}"></div>
-        <div th:each="price : ${item.prices}">
-            <div th:text="${price.getSize()}"></div>
-            <div th:text="${price.getPrice()}"></div>
-        </div>
-    <div th:text="${item.description}"></div>
-    <div th:text="${item.imgFile.storeFileName}"></div>
-    <img th:src="|/admin/system/items/images/${item.imgFile.getStoreFileName()}|" alt="Item Image" width="500" height="300"/>
-    <a th:href="@{/admin/system/item/{param1}(param1=${item.getId()})}">Get</a>
 
-    <form th:action="@{/admin/system/item/delete/{param1}(param1=${item.getId()})}" method="post" style="display:inline;">
-        <input type="hidden" name="_method" value="delete" />
-        <input type="hidden" name="storedImage" value="${item.imgFile.getStoreFileName()}">
-        <button type="submit">Delete</button>
-    </form>
-    <br>
-</div>
-<div th:text="${deleteMessage}">text</div>
+    <div th:class="items__main">
+        <div th:class="items-navbar">
+            <ul th:class="items-navbar-ul">
+                <li><a href="/admin/system/items/add">ADD ITEM</a></li>
+                <li><a href="/admin/system/items/add">ITEMS</a></li>
+                <li><a href="/admin/system/items/add">PIZZA</a></li>
+                <li><a href="/admin/system/items/add">PASTA</a></li>
+                <li><a href="/admin/system/items/add">SALAD</a></li>
+                <li><a href="/admin/system/items/add">DRINK</a></li>
+            </ul>
+
+        </div>
+
+        <div th:class="item__card-container">
+            <div th:class="item-card" th:each="item : ${retrievedItems}">
+
+                <!-- <div th:text="${item.imgFile.storeFileName}"></div> /* This is just for developer's reference */-->
+                <img th:if="${item.imgFile.getStoreFileName() != null and !item.imgFile.getStoreFileName().isEmpty()}"
+                     th:src="|/admin/system/items/images/${item.imgFile.getStoreFileName()}|"
+                     alt="Item Image" />
+
+                <img th:unless="${item.imgFile.getStoreFileName() != null and !item.imgFile.getStoreFileName().isEmpty()}"
+                     th:src="@{/images/no-picture.png}"
+                     alt="Default Image" />
+
+                <div th:class="'items-text item-name'" th:text="${item.itemName}"></div>
+                <div th:class="items-text" th:text="${item.category}"></div>
+
+                <div th:class="item-buttons">
+                    <button th:class="'detail-button detail'">
+                        <a th:href="@{/admin/system/item/{param1}(param1=${item.getId()})}">Detail</a>
+                    </button>
+                    <div>
+                        <form th:action="@{/admin/system/item/delete/{param1}(param1=${item.getId()})}" method="post">
+                            <input type="hidden" name="storedImage" value="${item.imgFile.getStoreFileName()}">
+                            <button th:class="'detail-button delete'" type="submit">Delete</button>
+                        </form>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
 </section>
 
-<br>
 <br>
 <hr>
 

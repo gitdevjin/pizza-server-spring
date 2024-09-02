@@ -11,6 +11,8 @@
     --main-theme-color: #006390;
     --main-text-color: #333;
     --main-text-font: "Merriweather", serif;
+    --main-shadow-color: #0495e0;
+    --main-red-color: #ef3f3f;
     --side-theme-color: #f7f7f7;
     --side-text-color: #4f4f4f;
     --side-border-A: 1px solid #bababa;
@@ -115,12 +117,12 @@ body {
 
 .header__burger.active::before {
     transform: rotate(45deg);
-    background-color: red;
+    background-color: #e31837;
 }
 
 .header__burger.active::after {
     transform: rotate(-45deg);
-    background-color: red;
+    background-color: #e31837;
 }
 
 /* Top Menu */
@@ -136,6 +138,7 @@ body {
 }
 
 .menu-box.active {
+    position: absolute;
     top: 5rem;
 }
 
